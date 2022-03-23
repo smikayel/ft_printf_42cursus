@@ -1,23 +1,36 @@
 #include "ft_printf.h"
 
-/*
-// -1 finish of text
-// 0 i element is not percent (for flag)
-// 1 whene need to print only char
-//
-int checking_type_and_printing(char *form,int index)
+void	hex_print(int number, int fd)
 {
-	if(form[i + 1] == '\0')
-		return (-1);
-	if(form[i] == '%')
-		return (0);
-	if(form[i + 1] == 'c');
+	char	hex;
+	while (number != 0)
+	{
+		
+		hex = number % 16;
+		if (hex < 10)
+		{
+			hex += '0';
+		}
+		else if(hex > 10)
+		{
+			hex += 87;
+		}
+
+		ft_putchar_fd(hex, 1);
+		number /= 16;
+	}
 }
-*/
-void ft_print_pointer(char a)
+
+void	ft_print_pointer(void *a)
 {
-	printf("%d",a);
+	int	tmp;
+
+	tmp = (unsigned int)&a;
+	printf("%d", (unsigned int)&a);
+	printf("%p", a);
+	printf("%llu", tmp);
 }
+
 int ft_printf(const char *form, ...)
 {
 	va_list arguments;
@@ -44,7 +57,7 @@ int ft_printf(const char *form, ...)
 			}
 			else if (form[i + 1] == 'p')
 			{
-				ft_print_pointer(va_arg(arguments, int));
+				ft_print_pointer(va_arg(arguments, void *));
 			}
 			else if (form[i + 1] == 'd')
 			{
@@ -55,10 +68,16 @@ int ft_printf(const char *form, ...)
 				// amboxj tiv
 			else if (form[i + 1] == 'u')
 				//
-			else if (form[i + 1] == 'x')
-				//
-			else if (form[i + 1] == '%')
 				*/
+			
+			else if (form[i + 1] == 'x')
+			{
+				hex_print(va_arg(arguments, int) , 1);
+			}
+			else if (form[i + 1] == '%')
+			{
+				ft_putchar_fd('%', 1);
+			}
 			i++;
 		}
 		else
@@ -77,6 +96,8 @@ int ft_printf(const char *form, ...)
 int main()
 {
 	char *a;
-	ft_printf("%pa%c___%s--%d",a, 'c',"asd" ,456,"asdasd", 'a');
+	//ft_printf("aasdasd%c___%s--", 'l',"barev Serg");
+	ft_printf("%x\n %%", 154);
+	//printf("%x",-77994779);
 	return 0;
 }
