@@ -1,26 +1,35 @@
 #include "ft_printf.h"
 
-void	hex_print(int number, int fd)
+int	len_hex_number(unsigned int num)
+{
+	int	len;
+
+	len = 0;
+	while (num != 0)
+	{
+		len++;
+		num = num / 16;
+	}
+	return (len);
+}
+void	hex_print(unsigned int number, int fd)
 {
 	char	hex;
+
 	while (number != 0)
 	{
-		
 		hex = number % 16;
-		if (hex < 10)
-		{
-			hex += '0';
-		}
-		else if(hex > 10)
+		if(hex >= 10)
 		{
 			hex += 87;
 		}
-
-		ft_putchar_fd(hex, 1);
+		else
+			hex += 48;
+		ft_putchar_fd(hex, fd);
 		number /= 16;
 	}
 }
-
+/*
 void	ft_print_pointer(void *a)
 {
 	int	tmp;
@@ -30,7 +39,7 @@ void	ft_print_pointer(void *a)
 	printf("%p", a);
 	printf("%llu", tmp);
 }
-
+*/
 int ft_printf(const char *form, ...)
 {
 	va_list arguments;
@@ -54,11 +63,11 @@ int ft_printf(const char *form, ...)
 			{
 				ft_putstr_fd(va_arg(arguments, char *), 1);
 			//	count_of_chr += ft_strlen(va_arg(arguments, char *));
-			}
+			}/*
 			else if (form[i + 1] == 'p')
 			{
 				ft_print_pointer(va_arg(arguments, void *));
-			}
+			}*/
 			else if (form[i + 1] == 'd')
 			{
 				ft_putnbr_fd(va_arg(arguments, int), 1);
@@ -95,9 +104,9 @@ int ft_printf(const char *form, ...)
 
 int main()
 {
-	char *a;
+	//char *a;
 	//ft_printf("aasdasd%c___%s--", 'l',"barev Serg");
-	ft_printf("%x\n %%", 154);
-	//printf("%x",-77994779);
+	ft_printf("%x\n", 154);
+	printf("%x",-154);
 	return 0;
 }
