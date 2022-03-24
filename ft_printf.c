@@ -1,49 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smikayel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/24 20:15:39 by smikayel          #+#    #+#             */
+/*   Updated: 2022/03/24 20:15:41 by smikayel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smikayel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/24 20:15:36 by smikayel          #+#    #+#             */
+/*   Updated: 2022/03/24 20:15:36 by smikayel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smikayel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/24 20:15:34 by smikayel          #+#    #+#             */
+/*   Updated: 2022/03/24 20:15:34 by smikayel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int	len_hex_number(unsigned int num)
-{
-	int	len;
-
-	len = 0;
-	while (num != 0)
-	{
-		len++;
-		num = num / 16;
-	}
-	return (len);
-}
-void	hex_print(unsigned int number, int fd)
-{
-	char	hex;
-
-	while (number != 0)
-	{
-		hex = number % 16;
-		if(hex >= 10)
-		{
-			hex += 87;
-		}
-		else
-			hex += 48;
-		ft_putchar_fd(hex, fd);
-		number /= 16;
-	}
-}
-/*
-void	ft_print_pointer(void *a)
-{
-	int	tmp;
-
-	tmp = (unsigned int)&a;
-	printf("%d", (unsigned int)&a);
-	printf("%p", a);
-	printf("%llu", tmp);
-}
-*/
 int ft_printf(const char *form, ...)
 {
 	va_list arguments;
-	int response;
 	int i;
 	int count_of_chr;
 
@@ -52,36 +47,32 @@ int ft_printf(const char *form, ...)
 	va_start(arguments, form);
 	while (form[i] != '\0')
 	{
-		if (form[i] && form[i] == '%')
+		if (form[i + 1] && form[i] == '%')
 		{
 			if (form[i + 1] == 'c')
-			{
-				count_of_chr += 1; 
+			{ 
 				ft_putchar_fd(va_arg(arguments, int), 1);
 			}
 			else if (form[i + 1] == 's')
 			{
 				ft_putstr_fd(va_arg(arguments, char *), 1);
-			//	count_of_chr += ft_strlen(va_arg(arguments, char *));
-			}/*
+			}
 			else if (form[i + 1] == 'p')
 			{
-				ft_print_pointer(va_arg(arguments, void *));
-			}*/
-			else if (form[i + 1] == 'd')
+				ft_putnbr_base(va_arg(arguments, unsigned long long),
+					   	"0123456789abcdef");
+			}
+			else if (form[i + 1] == 'd' || form[i + 1] == 'i')
 			{
 				ft_putnbr_fd(va_arg(arguments, int), 1);
 			}
-			/*
-			else if (form[i + 1] == 'i')
-				// amboxj tiv
 			else if (form[i + 1] == 'u')
-				//
-				*/
-			
-			else if (form[i + 1] == 'x')
 			{
-				hex_print(va_arg(arguments, int) , 1);
+				ft_print_unsigned_int(va_arg(arguments, unsigned int));
+			}
+			else if (form[i + 1] == 'x' || form[i + 1] == 'X')
+			{
+				hex_print(va_arg(arguments, int) , 1, form[i + 1]);
 			}
 			else if (form[i + 1] == '%')
 			{
@@ -104,9 +95,10 @@ int ft_printf(const char *form, ...)
 
 int main()
 {
-	//char *a;
-	//ft_printf("aasdasd%c___%s--", 'l',"barev Serg");
-	ft_printf("%x\n", 154);
-	printf("%x",-154);
+	int a;
+
+	//ft_printf("%p \n", -50546);
+	ft_putnbr_base( -50546,"0123456789abcdef");
+	printf("%X", 4556);
 	return 0;
 }
