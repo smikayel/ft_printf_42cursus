@@ -6,43 +6,12 @@
 /*   By: smikayel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:14:22 by smikayel          #+#    #+#             */
-/*   Updated: 2022/03/24 20:18:21 by smikayel         ###   ########.fr       */
+/*   Updated: 2022/03/25 12:29:06 by smikayel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-/*
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
 
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-*//*
-int	ft_strcmp(char *s1, char *s2)
-{
-	while (*s1)
-	{
-		if (*s1 != *s2)
-		{
-			break ;
-		}
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
-}
-*/
 int	is_base_valid(char *str)
 {
 	int		i;
@@ -76,6 +45,7 @@ void	ft_putnbr_base(unsigned long long int nbr, char *base)
 	int			a;
 	int			i;
 
+	write(1, "0x", 2);
 	num = nbr;
 	a = ft_strlen(base);
 	i = 0;
@@ -90,7 +60,7 @@ void	ft_putnbr_base(unsigned long long int nbr, char *base)
 		i++;
 	}
 	while (--i >= 0)
-		ft_putchar(base[call[i]]);
+		ft_putchar_fd(base[call[i]], 1);
 	if (nbr == 0)
-		ft_putchar('0');
+		ft_putchar_fd('0', 1);
 }

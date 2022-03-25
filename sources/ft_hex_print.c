@@ -6,7 +6,7 @@
 /*   By: smikayel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:15:05 by smikayel          #+#    #+#             */
-/*   Updated: 2022/03/24 20:15:06 by smikayel         ###   ########.fr       */
+/*   Updated: 2022/03/25 20:23:00 by smikayel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	hex_print(unsigned int number, int fd, char upper_lower)
 
 	if (number == 0)
 	{
-		ft_putchar_fd('0', 1);
+		ft_putchar_fd('0', fd);
 		return ;
 	}
 	len = len_hex_number(number);
