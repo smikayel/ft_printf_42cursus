@@ -12,55 +12,47 @@
 
 #include "../ft_printf.h"
 
-int	is_base_valid(char *str)
+int len_llu(unsigned long long nbr)
 {
-	int		i;
-	int		j;
+	int len;
 
-	i = 0;
-	if (str[0] == '\0' || str[1] == '\0')
-		return (0);
-	while (str[i])
+	len = 0;
+	while(nbr != 0)
 	{
-		j = i +1;
-		while (str[j])
-		{
-			if (str[i] == str[j])
-				return (0);
-			j++;
-		}
-		if (str[i] == '+' || str[i] == '-')
-			return (0);
-		if (str[i] < 33 || str[i] > 126)
-			return (0);
-		i++;
+		nbr /= 10;
+		len++;
 	}
-	return (1);
+	return (len);
+
 }
 
-void	ft_putnbr_base(unsigned long long int nbr, char *base)
+int	ft_print_pointer(unsigned long long int nbr)
 {
-	unsigned long long int	num;
-	int			call[20];
-	int			a;
+	char *char_arr_llu;
+	int len;
 	int			i;
+	int	tmp;
 
 	write(1, "0x", 2);
-	num = nbr;
-	a = ft_strlen(base);
+	len = len_llu(nbr);
+	char_arr_llu = malloc(len);
 	i = 0;
-	if (nbr < 0 && is_base_valid(base))
+	while (nbr != 0)
 	{
-		num = num * -1;
-	}
-	while (num && is_base_valid(base))
-	{
-		call[i] = num % a;
-		num = num / a;
+		tmp = nbr % 16;
+		if (tmp > 10)
+			tmp = 'a' + tmp - 10;
+		else
+			tmp += '0';
+		char_arr_llu[i] = tmp;
+		nbr /= 16;
 		i++;
 	}
+	len = i;
 	while (--i >= 0)
-		ft_putchar_fd(base[call[i]], 1);
+		ft_putchar_fd(char_arr_llu[i], 1);
 	if (nbr == 0)
 		ft_putchar_fd('0', 1);
+	free(char_arr_llu);
+	return (len);
 }

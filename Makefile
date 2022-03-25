@@ -18,13 +18,18 @@ NAME = libftprintf.a
 
 SRCS =	ft_printf.c \
 		sources/ft_hex_print.c \
+		sources/ft_print_str.c \
 		sources/ft_print_unsigned_int.c \
-		sources/ft_putnbr_base.c
+		sources/ft_print_pointer.c \
+		sources/print_dec_int.c
 		
-SURPL_O =	ft_printf.o \
-			sources/ft_hex_print.o \
-			sources/ft_ft_print_unsigned_int.o \
-			sources/ft_putnbr_base.o
+SURPL_O = ft_printf.o \
+		sources/ft_hex_print.o \
+		sources/ft_print_str.o \
+		sources/ft_print_unsigned_int.o \
+		sources/ft_print_pointer.o \
+		sources/print_dec_int.o
+		
 
 CC = cc
 

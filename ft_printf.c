@@ -16,57 +16,47 @@ int ft_printf(const char *form, ...)
 {
 	va_list arguments;
 	int i;
-	int count_of_chr;
+	int count;
 
 	i = 0;
-	count_of_chr = 0;
+	count = 0;
 	va_start(arguments, form);
 	while (form[i] != '\0')
 	{
-		if (form[i + 1] && form[i] == '%')
-		{
-			if (form[i + 1] == 'c')
-			{ 
-				ft_putchar_fd(va_arg(arguments, int), 1);
-			}
-			else if (form[i + 1] == 's')
-			{
-				ft_putstr_fd(va_arg(arguments, char *), 1);
-			}
-			else if (form[i + 1] == 'p')
-			{
-				ft_putnbr_base(va_arg(arguments, unsigned long long),
-					   	"0123456789abcdef");
-			}
-			else if (form[i + 1] == 'd' || form[i + 1] == 'i')
-			{
-				ft_putnbr_fd(va_arg(arguments, int), 1);
-			}
-			else if (form[i + 1] == 'u')
-			{
-				ft_print_unsigned_int(va_arg(arguments, unsigned int));
-			}
-			else if (form[i + 1] == 'x' || form[i + 1] == 'X')
-			{
-				hex_print(va_arg(arguments, int) , 1, form[i + 1]);
-			}
-			else if (form[i + 1] == '%')
-			{
-				ft_putchar_fd('%', 1);
-			}
-			i++;
-		}
-		else
-		{
-			count_of_chr += 1;
-			ft_putchar_fd(form[i], 1);
+        if (form[i + 1] && form[i] == '%')
+                {
+                        if (form[i + 1] == 'c')
+                        { 
+                                count += 1;
+                                ft_putchar_fd(va_arg(arguments, int), 1);
+                        }
+                        else if (form[i + 1] == 's')
+                                count += print_str(va_arg(arguments, char *));
+                        else if (form[i + 1] == 'p')
+                                count += ft_print_pointer(va_arg(arguments, unsigned long long));
+                        else if (form[i + 1] == 'd' || form[i + 1] == 'i')
+                                count += print_dec_int(va_arg(arguments, int));
+                        else if (form[i + 1] == 'u')
+                                count += ft_print_unsigned_int(va_arg(arguments, unsigned int));
+                        else if (form[i + 1] == 'x' || form[i + 1] == 'X')
+                                count += hex_print(va_arg(arguments, int) , 1, form[i + 1]);
+                        else if (form[i + 1] == '%')
+                        {
+                                count += 1;
+                                ft_putchar_fd('%', 1);
+                        }
+                        i++;
+                }
+                else
+                {
+                        count += 1;
+                        ft_putchar_fd(form[i], 1);
 
-		}
-		i++;
-			
+                }
+                i++;
 	}
 	va_end(arguments);
-	return 0;
+	return (count);
 }
 /*
 int main()

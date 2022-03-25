@@ -40,7 +40,7 @@ static int	len_hex_number(unsigned int num)
 	return (len);
 }
 
-void	hex_print(unsigned int number, int fd, char upper_lower)
+int	hex_print(unsigned int number, int fd, char upper_lower)
 {
 	char	hex;
 	int		len;
@@ -50,7 +50,7 @@ void	hex_print(unsigned int number, int fd, char upper_lower)
 	if (number == 0)
 	{
 		ft_putchar_fd('0', fd);
-		return ;
+		return (1);
 	}
 	len = len_hex_number(number);
 	hex_str = malloc(sizeof(char)*len);
@@ -74,4 +74,5 @@ void	hex_print(unsigned int number, int fd, char upper_lower)
 	ft_rev_int_tab(hex_str, ft_strlen(hex_str));
 	ft_putstr_fd(hex_str, 1);
 	free(hex_str);
+	return (i);
 }

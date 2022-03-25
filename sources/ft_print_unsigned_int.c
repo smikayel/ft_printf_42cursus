@@ -40,7 +40,7 @@ void	ft_rev_int_tab(char *tab, int size)
 	}
 }
 
-void ft_print_unsigned_int(unsigned int number)
+int ft_print_unsigned_int(unsigned int number)
 {
 	char *b;
 	int	i;
@@ -63,4 +63,5 @@ void ft_print_unsigned_int(unsigned int number)
 		ft_putstr_fd(b, 1);
 		free(b);
 	}
+	return (i);
 }
