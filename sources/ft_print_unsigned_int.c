@@ -6,7 +6,7 @@
 /*   By: smikayel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:15:14 by smikayel          #+#    #+#             */
-/*   Updated: 2022/03/24 20:15:16 by smikayel         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:18:58 by smikayel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ int ft_print_unsigned_int(unsigned int number)
 	int	i;
 	int len;
 
+	i = 0;
 	if (number == 0)
+	{
 		ft_putchar_fd('0', 1);
+		i++;
+	}
 	else
 	{
-		i = 0;
 		len = len_unsigned_int(number);
 		b = malloc(len);
 		while (number != 0)

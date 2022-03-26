@@ -13,5 +13,6 @@ int	ft_print_unsigned_int(unsigned  int number);
 int	ft_print_pointer(unsigned long long int nbr);
 int	print_str(char *string);
 int	print_dec_int(int nbr);
+int ft_printf(const char *form, ...);
 
 #endif
